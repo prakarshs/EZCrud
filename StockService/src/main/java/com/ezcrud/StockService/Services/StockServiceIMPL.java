@@ -1,6 +1,7 @@
 package com.ezcrud.StockService.Services;
 
 import com.ezcrud.StockService.Entities.Stocks;
+import com.ezcrud.StockService.Models.StockListResponse;
 import com.ezcrud.StockService.Models.StockRequest;
 import com.ezcrud.StockService.Models.StockResponse;
 import com.ezcrud.StockService.Repositories.StockServiceRepository;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -51,6 +55,15 @@ public class StockServiceIMPL implements StockService{
                 .stockPrice(stocks.getStockPrice())
                 .stockQuantity(stocks.getStockQuantity())
                 .stockTime(stocks.getStockTime())
+                .build();
+    }
+
+    @Override
+    public StockListResponse showAll() {
+
+        return StockListResponse.builder()
+                .messageStockList(":: LIST OF OUR INVENTORY ITEMS ::")
+                .stockList(new ArrayList<>(stockServiceRepository.findAll()))
                 .build();
     }
 }
