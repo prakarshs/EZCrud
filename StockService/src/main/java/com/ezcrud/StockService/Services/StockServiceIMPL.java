@@ -1,6 +1,7 @@
 package com.ezcrud.StockService.Services;
 
 import com.ezcrud.StockService.Entities.Stocks;
+import com.ezcrud.StockService.Errors.CustomError;
 import com.ezcrud.StockService.Models.StockListResponse;
 import com.ezcrud.StockService.Models.StockRequest;
 import com.ezcrud.StockService.Models.StockResponse;
@@ -44,7 +45,7 @@ public class StockServiceIMPL implements StockService{
     @Override
     public StockResponse show(Long stockId) {
         log.info("VALIDATING STOCKID...");
-        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new RuntimeException("ERROR"));
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError("The StockId Doesnt Exist.","Try With A different Stockid"));
 
         return StockResponse.builder()
                 .stockMessage("YOUR STOCK WAS FOUND!")
@@ -68,7 +69,7 @@ public class StockServiceIMPL implements StockService{
     @Override
     public StockListResponse remove(Long stockId) {
         log.info("VALIDATING STOCKID...");
-        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new RuntimeException("ERROR"));
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError("The StockId Doesnt Exist.","Try With A different Stockid"));
         log.info("REMOVING STOCK...");
         stockServiceRepository.delete(stocks);
         return StockListResponse.builder()
@@ -80,7 +81,7 @@ public class StockServiceIMPL implements StockService{
     @Override
     public StockResponse changePrice(Long stockId, Long newPrice) {
         log.info("VALIDATING STOCKID...");
-        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new RuntimeException("ERROR"));
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError("The StockId Doesnt Exist.","Try With A different Stockid"));
 
         log.info("UPDATING PRICE...");
         stocks.setStockPrice(newPrice);
