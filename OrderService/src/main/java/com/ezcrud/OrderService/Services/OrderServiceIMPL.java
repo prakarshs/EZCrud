@@ -6,6 +6,7 @@ import com.ezcrud.OrderService.External.Classes.Stocks;
 import com.ezcrud.OrderService.Models.Constants;
 import com.ezcrud.OrderService.Models.OrderRequest;
 import com.ezcrud.OrderService.Models.OrderResponse;
+import com.ezcrud.OrderService.Models.OrderShow;
 import com.ezcrud.OrderService.Repositories.OrderServiceRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class OrderServiceIMPL implements OrderService{
         Stocks stocks;
         try {
             stocks = restTemplate.getForObject("http://localhost:8080/stocks/show/"+orderRequest.getStockId(), Stocks.class);
+            log.info("FOUND STOCK.");
         }catch(Exception e){
             throw new CustomError("The StockId Doesnt Exist.","Try With A different Stockid");
         }
@@ -56,6 +58,30 @@ public class OrderServiceIMPL implements OrderService{
                 .orderQuantity(orders.getOrderQuantity())
                 .orderTime(orders.getOrderTime())
                 .orderStatus(orders.getOrderStatus())
+                .build();
+    }
+
+    @Override
+    public OrderShow show(Long orderId) {
+        log.info("VALIDATING ORDERID...");
+        Orders orders = orderServiceRepository.findById(orderId).orElseThrow(()-> new CustomError("OrderId Doesnt Exist !","Try With A Different OrderId !"));
+
+        log.info("LOOKING UP STOCK..");
+        Stocks stocks = restTemplate.getForObject("http://localhost:8080/stocks/show/"+orders.getStockId(),Stocks.class);
+
+
+        return OrderShow.builder()
+                .message("Here's Your Order Details : ")
+                .orderQuantity(orders.getOrderQuantity())
+                .orderStatus(orders.getOrderStatus())
+                .orderTime(orders.getOrderTime())
+                .orderedStockDetails(Stocks.builder()
+                        .stockId(stocks.getStockId())
+                        .stockName(stocks.getStockName())
+                        .stockPrice(stocks.getStockPrice())
+                        .stockQuantity(stocks.getStockQuantity())
+                        .stockTime(stocks.getStockTime())
+                        .build())
                 .build();
     }
 }
