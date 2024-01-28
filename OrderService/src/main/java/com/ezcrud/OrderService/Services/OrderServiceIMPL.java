@@ -78,16 +78,8 @@ public class OrderServiceIMPL implements OrderService{
 
         return OrderShow.builder()
                 .message("Here's Your Order Details : ")
-                .orderQuantity(orders.getOrderQuantity())
-                .orderStatus(orders.getOrderStatus())
-                .orderTime(orders.getOrderTime())
-                .orderedStockDetails(Stocks.builder()
-                        .stockId(stocks.getStockId())
-                        .stockName(stocks.getStockName())
-                        .stockPrice(stocks.getStockPrice())
-                        .stockQuantity(stocks.getStockQuantity())
-                        .stockTime(stocks.getStockTime())
-                        .build())
+                .orderDetails(orders)
+                .orderedStockDetails(stocks)
                 .build();
     }
 

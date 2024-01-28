@@ -1,6 +1,8 @@
 package com.ezcrud.OrderService.Models;
 
+import com.ezcrud.OrderService.Entities.Orders;
 import com.ezcrud.OrderService.External.Classes.Stocks;
+import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +17,5 @@ import java.time.Instant;
 public class OrderShow {
     private String message;
     private Stocks orderedStockDetails;
-    private Long orderQuantity;
-    private Instant orderTime;
-    private String orderStatus;
+    private Orders orderDetails;
 }
