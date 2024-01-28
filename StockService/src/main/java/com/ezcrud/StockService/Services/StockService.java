@@ -5,4 +5,6 @@ import com.ezcrud.StockService.Models.StockResponse;
 
 public interface StockService {
     StockResponse add(StockRequest stockRequest);
+
+    StockResponse show(Long stockId);
 }

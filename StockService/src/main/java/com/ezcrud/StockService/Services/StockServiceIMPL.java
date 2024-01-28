@@ -26,9 +26,26 @@ public class StockServiceIMPL implements StockService{
                 .build();
         log.info("ADDING STOCK...");
         stockServiceRepository.save(stocks);
+        log.info("STOCK ADDED.");
+
 
         return StockResponse.builder()
                 .stockMessage("YOUR STOCK WAS ADDED!")
+                .stockId(stocks.getStockId())
+                .stockName(stocks.getStockName())
+                .stockPrice(stocks.getStockPrice())
+                .stockQuantity(stocks.getStockQuantity())
+                .stockTime(stocks.getStockTime())
+                .build();
+    }
+
+    @Override
+    public StockResponse show(Long stockId) {
+        log.info("VALIDATING STOCKID...");
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new RuntimeException("ERROR"));
+
+        return StockResponse.builder()
+                .stockMessage("YOUR STOCK WAS FOUND!")
                 .stockId(stocks.getStockId())
                 .stockName(stocks.getStockName())
                 .stockPrice(stocks.getStockPrice())
