@@ -19,6 +19,7 @@ import java.time.Instant;
 @Log4j2
 public class OrderServiceIMPL implements OrderService{
 
+
     @Autowired
     private OrderServiceRepository orderServiceRepository;
 
@@ -32,7 +33,7 @@ public class OrderServiceIMPL implements OrderService{
             stocks = restTemplate.getForObject("http://localhost:8080/stocks/show/"+orderRequest.getStockId(), Stocks.class);
             log.info("FOUND STOCK.");
         }catch(Exception e){
-            throw new CustomError("The StockId Doesnt Exist.","Try With A different Stockid");
+            throw new CustomError(Constants.STOCK_ID_DOESNT_EXIST,Constants.TRY_WITH_A_DIFFERENT_STOCKID);
         }
 
         Orders orders;
@@ -49,7 +50,7 @@ public class OrderServiceIMPL implements OrderService{
             log.info("ADDED TO CART!");
         }
         else {
-            throw new CustomError("Not Enough Stocks !","Try With A Lesser Quantity !");
+            throw new CustomError(Constants.INSUFFICIENT_STOCK,Constants.TRY_WITH_A_LESSER_AMOUNT);
         }
         return OrderResponse.builder()
                 .message("STOCK ADDED TO CART!")
@@ -64,7 +65,7 @@ public class OrderServiceIMPL implements OrderService{
     @Override
     public OrderShow show(Long orderId) {
         log.info("VALIDATING ORDERID...");
-        Orders orders = orderServiceRepository.findById(orderId).orElseThrow(()-> new CustomError("OrderId Doesnt Exist !","Try With A Different OrderId !"));
+        Orders orders = orderServiceRepository.findById(orderId).orElseThrow(()-> new CustomError(Constants.ORDER_ID_DOESNT_EXIST,Constants.TRY_WITH_A_DIFFERENT_ORDER_ID));
 
         log.info("LOOKING UP STOCK..");
         Stocks stocks = restTemplate.getForObject("http://localhost:8080/stocks/show/"+orders.getStockId(),Stocks.class);
