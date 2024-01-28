@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderServiceRepository extends JpaRepository<Orders,Long> {
-
     Orders findByorderRefCode(String orderRefCode);
 }
 

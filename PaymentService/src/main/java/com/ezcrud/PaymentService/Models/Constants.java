@@ -1,4 +1,4 @@
-package com.ezcrud.OrderService.Models;
+package com.ezcrud.PaymentService.Models;
 
 public class Constants {
     public static final String ADDED_TO_CART = "ADDED TO CART";
@@ -11,6 +11,9 @@ public class Constants {
     public static final String EMI = "EMI";
     public static final String STOCK_ID_DOESNT_EXIST = "The StockId Doesnt Exist !";
     public static final String TRY_WITH_A_DIFFERENT_STOCKID = "Try With A different Stockid";
+
+    public static final String PAYMENT_ID_DOESNT_EXIST = "The PaymentId Doesnt Exist !";
+    public static final String TRY_WITH_A_DIFFERENT_PAYMENTID = "Try With A different Paymentid";
 
     public static final String INSUFFICIENT_STOCK = "Insufficient Stock !";
     public static final String TRY_WITH_A_LESSER_AMOUNT = "Try With A lesser Amount !";

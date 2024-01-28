@@ -1,4 +1,4 @@
-package com.ezcrud.OrderService.Models;
+package com.ezcrud.PaymentService.Errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlaceOrderRequest {
-    private Long orderId;
-    private String orderRefCode;
-    private String paymentMode;
-
+public class ErrorBody {
+    private String text;
+    private String message;
+    private String resolution;
 }

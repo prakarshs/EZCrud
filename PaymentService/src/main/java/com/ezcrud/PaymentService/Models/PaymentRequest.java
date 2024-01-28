@@ -1,4 +1,4 @@
-package com.ezcrud.OrderService.Models;
+package com.ezcrud.PaymentService.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlaceOrderRequest {
+public class PaymentRequest {
     private Long orderId;
     private String orderRefCode;
+    private Long paymentAmount;
     private String paymentMode;
-
 }

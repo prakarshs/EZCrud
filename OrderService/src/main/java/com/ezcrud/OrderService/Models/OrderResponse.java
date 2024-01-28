@@ -17,6 +17,7 @@ public class OrderResponse {
     private Long orderId;
     private String orderRefCode;
     private Long stockId;
+    private Long paymentId;
     private Long orderQuantity;
     private Instant orderTime;
     private String orderStatus;
