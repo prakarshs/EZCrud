@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -18,6 +19,8 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
+    @Column(name = "ORDER_REF_CODE")
+    private String orderRefCode;
     @Column(name = "STOCK_ID")
     private Long stockId;
     @Column(name = "ORDER_QUANTITY")

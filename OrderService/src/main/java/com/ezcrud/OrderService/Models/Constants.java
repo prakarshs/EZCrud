@@ -12,4 +12,7 @@ public class Constants {
 
     public static final String ORDER_ID_DOESNT_EXIST = "The OrderId Doesnt Exist !";
     public static final String TRY_WITH_A_DIFFERENT_ORDER_ID = "Try With A Different OrderId !";
+
+    public static final String REFERENCE_CODE_DOESNT_EXIST = "Reference Code Doesnt Exist !";
+    public static final String TRY_WITH_A_DIFFERENT_REFERENCE_CODE = "Try With a Different Reference Code !";
 }

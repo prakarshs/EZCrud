@@ -15,6 +15,7 @@ import java.time.Instant;
 public class OrderResponse {
     private String message;
     private Long orderId;
+    private String orderRefCode;
     private Long stockId;
     private Long orderQuantity;
     private Instant orderTime;
