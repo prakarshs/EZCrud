@@ -85,6 +85,7 @@ public class StockServiceIMPL implements StockService{
 
         log.info("UPDATING PRICE...");
         stocks.setStockPrice(newPrice);
+        stockServiceRepository.save(stocks);
 
         return StockResponse.builder()
                 .stockMessage("PRICE WAS UPDATED!")
