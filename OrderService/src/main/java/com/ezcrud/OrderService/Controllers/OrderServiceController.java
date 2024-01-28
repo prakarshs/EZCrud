@@ -20,7 +20,7 @@ public class OrderServiceController {
 
     @PostMapping("/create")
     private ResponseEntity<OrderResponse> create(@RequestBody OrderRequest orderRequest){
-        return new ResponseEntity<>(orderService.create(orderRequest), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.addCart(orderRequest), HttpStatus.OK);
     }
 
 }

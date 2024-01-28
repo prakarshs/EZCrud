@@ -4,5 +4,6 @@ import com.ezcrud.OrderService.Models.OrderRequest;
 import com.ezcrud.OrderService.Models.OrderResponse;
 
 public interface OrderService {
-    OrderResponse create(OrderRequest orderRequest);
+
+    OrderResponse addCart(OrderRequest orderRequest);
 }

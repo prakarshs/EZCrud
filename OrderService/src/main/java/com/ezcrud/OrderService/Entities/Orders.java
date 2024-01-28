@@ -1,6 +1,5 @@
 package com.ezcrud.OrderService.Entities;
 
-import com.ezcrud.OrderService.Models.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +25,5 @@ public class Orders {
     @Column(name = "ORDER_TIME")
     private Instant orderTime;
     @Column(name = "ORDER_STATUS")
-    private OrderStatus orderStatus;
+    private String orderStatus;
 }

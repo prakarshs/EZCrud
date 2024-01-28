@@ -13,5 +13,5 @@ public interface StockService {
 
     StockListResponse remove(Long stockId);
 
-    StockResponse changePrice(Long stockId);
+    StockResponse changePrice(Long stockId,Long newPrice);
 }

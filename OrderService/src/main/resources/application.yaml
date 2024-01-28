@@ -5,7 +5,7 @@ spring:
   application:
     name: ORDER-SERVICE
   datasource:
-    url:  jdbc:mysql://${DB_HOST:localhost}:3306/order-draft
+    url:  jdbc:mysql://${DB_HOST:localhost}:3306/order-drafts
     username: root
     password: root
   jpa:
