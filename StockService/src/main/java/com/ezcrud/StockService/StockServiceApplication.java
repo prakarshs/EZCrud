@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StockServiceApplication {
 
 	public static void main(String[] args) {
-		log.info("Stock Service Started: ");
 		SpringApplication.run(StockServiceApplication.class, args);
+		log.info("Stock Service Started: ");
 	}
 
 }
