@@ -23,6 +23,8 @@ public class Orders {
     private String orderRefCode;
     @Column(name = "STOCK_ID")
     private Long stockId;
+    @Column(name = "PAYMENT_ID")
+    private Long paymentId;
     @Column(name = "ORDER_QUANTITY")
     private Long orderQuantity;
     @Column(name = "ORDER_TIME")

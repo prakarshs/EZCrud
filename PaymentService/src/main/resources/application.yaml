@@ -5,7 +5,7 @@ spring:
   application:
     name: PAYMENT-SERVICE
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/payments
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/payment
     username: root
     password: root
   jpa:

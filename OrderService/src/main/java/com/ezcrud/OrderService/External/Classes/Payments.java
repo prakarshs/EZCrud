@@ -1,4 +1,4 @@
-package com.ezcrud.PaymentService.Entities;
+package com.ezcrud.OrderService.External.Classes;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

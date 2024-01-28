@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ErrorBody {
+    private String text;
+    private String message;
+    private String resolution;
 }
