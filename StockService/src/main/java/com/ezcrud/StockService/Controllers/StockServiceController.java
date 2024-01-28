@@ -37,4 +37,9 @@ public class StockServiceController {
         return new ResponseEntity<>(stockService.showAll(),HttpStatus.OK);
     }
 
+    @PutMapping("/changePrice")
+    private ResponseEntity<StockResponse> changePrice(@RequestParam(name = "id") Long stockId,@RequestParam(name = "stockName", required = false) String stockName,@RequestParam(name = "newPrice") Long newPrice){
+        return new ResponseEntity<>(stockService.changePrice(stockId,newPrice),HttpStatus.OK);
+    }
+
 }

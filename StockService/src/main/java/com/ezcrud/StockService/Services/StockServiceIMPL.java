@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -76,6 +74,24 @@ public class StockServiceIMPL implements StockService{
         return StockListResponse.builder()
                 .messageStockList(":: LIST OF OUR UPDATED INVENTORY ITEMS ::")
                 .stockList(new ArrayList<>(stockServiceRepository.findAll()))
+                .build();
+    }
+
+    @Override
+    public StockResponse changePrice(Long stockId, Long newPrice) {
+        log.info("VALIDATING STOCKID...");
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new RuntimeException("ERROR"));
+
+        log.info("UPDATING PRICE...");
+        stocks.setStockPrice(newPrice);
+
+        return StockResponse.builder()
+                .stockMessage("PRICE WAS UPDATED!")
+                .stockId(stocks.getStockId())
+                .stockName(stocks.getStockName())
+                .stockPrice(stocks.getStockPrice())
+                .stockQuantity(stocks.getStockQuantity())
+                .stockTime(stocks.getStockTime())
                 .build();
     }
 }
