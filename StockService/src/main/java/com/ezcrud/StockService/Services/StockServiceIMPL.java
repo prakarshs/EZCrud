@@ -60,9 +60,21 @@ public class StockServiceIMPL implements StockService{
 
     @Override
     public StockListResponse showAll() {
-
+        log.info("FETCHING INVENTORY...");
         return StockListResponse.builder()
                 .messageStockList(":: LIST OF OUR INVENTORY ITEMS ::")
+                .stockList(new ArrayList<>(stockServiceRepository.findAll()))
+                .build();
+    }
+
+    @Override
+    public StockListResponse remove(Long stockId) {
+        log.info("VALIDATING STOCKID...");
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new RuntimeException("ERROR"));
+        log.info("REMOVING STOCK...");
+        stockServiceRepository.delete(stocks);
+        return StockListResponse.builder()
+                .messageStockList(":: LIST OF OUR UPDATED INVENTORY ITEMS ::")
                 .stockList(new ArrayList<>(stockServiceRepository.findAll()))
                 .build();
     }

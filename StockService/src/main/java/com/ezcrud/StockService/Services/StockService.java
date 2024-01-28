@@ -13,4 +13,6 @@ public interface StockService {
     StockResponse show(Long stockId);
 
     StockListResponse showAll();
+
+    StockListResponse remove(Long stockId);
 }
