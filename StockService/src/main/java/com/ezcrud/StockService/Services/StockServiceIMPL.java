@@ -2,6 +2,7 @@ package com.ezcrud.StockService.Services;
 
 import com.ezcrud.StockService.Entities.Stocks;
 import com.ezcrud.StockService.Errors.CustomError;
+import com.ezcrud.StockService.Models.Constants;
 import com.ezcrud.StockService.Models.StockListResponse;
 import com.ezcrud.StockService.Models.StockRequest;
 import com.ezcrud.StockService.Models.StockResponse;
@@ -45,7 +46,7 @@ public class StockServiceIMPL implements StockService{
     @Override
     public StockResponse show(Long stockId) {
         log.info("VALIDATING STOCKID...");
-        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError("The StockId Doesnt Exist.","Try With A different Stockid"));
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError(Constants.STOCK_ID_DOESNT_EXIST,Constants.TRY_WITH_A_DIFFERENT_STOCKID));
 
         return StockResponse.builder()
                 .stockMessage("YOUR STOCK WAS FOUND!")
@@ -69,7 +70,7 @@ public class StockServiceIMPL implements StockService{
     @Override
     public StockListResponse remove(Long stockId) {
         log.info("VALIDATING STOCKID...");
-        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError("The StockId Doesnt Exist.","Try With A different Stockid"));
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError(Constants.STOCK_ID_DOESNT_EXIST,Constants.TRY_WITH_A_DIFFERENT_STOCKID));
         log.info("REMOVING STOCK...");
         stockServiceRepository.delete(stocks);
         return StockListResponse.builder()
@@ -81,13 +82,40 @@ public class StockServiceIMPL implements StockService{
     @Override
     public StockResponse changePrice(Long stockId, Long newPrice) {
         log.info("VALIDATING STOCKID...");
-        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError("The StockId Doesnt Exist.","Try With A different Stockid"));
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError(Constants.STOCK_ID_DOESNT_EXIST, Constants.TRY_WITH_A_DIFFERENT_STOCKID));
 
         log.info("UPDATING PRICE...");
         stocks.setStockPrice(newPrice);
+        stockServiceRepository.save(stocks);
 
         return StockResponse.builder()
                 .stockMessage("PRICE WAS UPDATED!")
+                .stockId(stocks.getStockId())
+                .stockName(stocks.getStockName())
+                .stockPrice(stocks.getStockPrice())
+                .stockQuantity(stocks.getStockQuantity())
+                .stockTime(stocks.getStockTime())
+                .build();
+    }
+
+    @Override
+    public StockResponse reduce(Long stockId, Long quantity) {
+        log.info("VALIDATING STOCKID...");
+        Stocks stocks = stockServiceRepository.findById(stockId).orElseThrow(()->new CustomError(Constants.STOCK_ID_DOESNT_EXIST,Constants.TRY_WITH_A_DIFFERENT_STOCKID));
+
+        log.info("VALIDATING STOCK-QUANTITY...");
+        if(stocks.getStockQuantity() < quantity)
+        {
+            log.info("INSUFFICIENT STOCK.");
+            throw new CustomError(Constants.INSUFFICIENT_STOCK,Constants.TRY_WITH_A_LESSER_AMOUNT);
+        }
+        else{
+            log.info("REDUCING STOCK...");
+            stocks.setStockQuantity(stocks.getStockQuantity() - quantity);
+            stockServiceRepository.save(stocks);
+        }
+        return StockResponse.builder()
+                .stockMessage("STOCK_QUANTITY WAS REDUCED!")
                 .stockId(stocks.getStockId())
                 .stockName(stocks.getStockName())
                 .stockPrice(stocks.getStockPrice())

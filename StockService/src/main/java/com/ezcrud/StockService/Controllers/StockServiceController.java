@@ -27,14 +27,19 @@ public class StockServiceController {
     private ResponseEntity<StockResponse> show(@PathVariable("id") Long stockId){
         return new ResponseEntity<>(stockService.show(stockId),HttpStatus.OK);
     }
-    @DeleteMapping("/remove/{id}")
-    private ResponseEntity<StockListResponse> remove(@PathVariable("id") Long stockId){
-        return new ResponseEntity<>(stockService.remove(stockId),HttpStatus.OK);
-    }
 
     @GetMapping("/showAll")
     private ResponseEntity<StockListResponse> showAll(){
         return new ResponseEntity<>(stockService.showAll(),HttpStatus.OK);
+    }
+
+    @PutMapping("/reduce/{id}/{quantity}")
+    private ResponseEntity<StockResponse> reduce(@PathVariable("id") Long stockId, @PathVariable("quantity") Long quantity){
+        return new ResponseEntity<>(stockService.reduce(stockId,quantity),HttpStatus.OK);
+    }
+    @DeleteMapping("/remove/{id}")
+    private ResponseEntity<StockListResponse> remove(@PathVariable("id") Long stockId){
+        return new ResponseEntity<>(stockService.remove(stockId),HttpStatus.OK);
     }
 
     @PutMapping("/changePrice")
