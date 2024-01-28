@@ -1,6 +1,7 @@
 package com.ezcrud.OrderService.Services;
 
 import com.ezcrud.OrderService.Entities.Orders;
+import com.ezcrud.OrderService.Errors.CustomError;
 import com.ezcrud.OrderService.External.Classes.Stocks;
 import com.ezcrud.OrderService.Models.Constants;
 import com.ezcrud.OrderService.Models.OrderRequest;
@@ -25,7 +26,12 @@ public class OrderServiceIMPL implements OrderService{
     @Override
     public OrderResponse addCart(OrderRequest orderRequest) {
         log.info("VALIDATING ORDER STOCKID...");
-        Stocks stocks = restTemplate.getForObject("http://localhost:8080/stocks/show/"+orderRequest.getStockId(), Stocks.class);
+        Stocks stocks;
+        try {
+            stocks = restTemplate.getForObject("http://localhost:8080/stocks/show/"+orderRequest.getStockId(), Stocks.class);
+        }catch(Exception e){
+            throw new CustomError("The StockId Doesnt Exist.","Try With A different Stockid");
+        }
 
         Orders orders;
 
@@ -38,9 +44,10 @@ public class OrderServiceIMPL implements OrderService{
                     .orderStatus(Constants.ADDED_TO_CART)
                     .build();
             orderServiceRepository.save(orders);
+            log.info("ADDED TO CART!");
         }
         else {
-            throw new RuntimeException("ERROR");
+            throw new CustomError("Not Enough Stocks !","Try With A Lesser Quantity !");
         }
         return OrderResponse.builder()
                 .message("STOCK ADDED TO CART!")
